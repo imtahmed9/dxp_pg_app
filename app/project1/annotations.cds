@@ -1,0 +1,1 @@
+using btp as service from '../../srv/myService';

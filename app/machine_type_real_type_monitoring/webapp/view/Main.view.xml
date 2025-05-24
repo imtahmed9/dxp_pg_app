@@ -1,0 +1,80 @@
+<mvc:View controllerName="com.evoedge.machinetyperealtypemonitoring.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:ui="sap.ui.table"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns:core="sap.ui.core"
+    xmlns:suite="sap.suite.ui.commons"
+    height="100%">
+
+    <f:DynamicPage id="idDynamicMTRTM">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Machine Type Real Time Monitoring"/>
+                </f:heading>
+                <f:expandedContent>
+                    <Label text="Machine Type Real Time Monitoring"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="Machine Type Real Time Monitoring"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="Machine Type Real Time Monitoring"/>
+                </f:snappedTitleOnMobile>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="idFilterBarMTRTM"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem name="MachineType" label="Machine Type" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <ComboBox
+                                        id="comboMachineType"
+                                        items="{
+                                            path: '/UniqueMachineTypes',
+                                            sorter: { path: 'Machine_Type' }
+                                        }"
+                                        selectedKey="{viewModel>/selectedMachineType}"
+                                        change="onMachineTypeChange">
+                                        <core:Item key="{Machine_Type}" text="{Machine_Type}" />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <f:content>
+            <ScrollContainer height="100%" vertical="true">
+                <VBox class="sapUiSmallMargin" alignItems="Center" width="20%">
+                    <!-- Central Gauge -->
+                    <core:HTML id="overallGaugeHTML"
+                        content="&lt;canvas id='overallGauge' width='200' height='150'&gt;&lt;/canvas&gt;" />
+
+                    <!-- Machine Progress Cards -->
+                    <HBox id="progressListContainer"
+                          wrap="Wrap"
+                          justifyContent="Start"
+                          class="sapUiSmallMarginTop" />
+                </VBox>
+            </ScrollContainer>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

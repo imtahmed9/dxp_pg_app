@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: dxp-pg-app-container
+    restart: always
+    environment:
+      POSTGRES_USER: ca5d5b2b17d4
+      POSTGRES_PASSWORD: 4153eca6946b1b144ea12ecae5811
+      POSTGRES_DB: cJWKCXRujIop
+    ports:
+      - '4941:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -1,0 +1,13 @@
+id,machine_id,created_date,created_time,machine_name,Location,pressure
+1,wm-1,2025-04-28,13:00:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',192
+2,wm-1,2025-04-28,13:10:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',200
+3,wm-1,2025-04-28,13:20:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',180
+4,wm-1,2025-04-28,13:30:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',198
+5,wm-1,2025-04-28,13:40:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',202
+6,wm-1,2025-04-28,13:50:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',204
+7,wm-1,2025-04-28,14:00:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',140
+8,wm-1,2025-04-28,14:10:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',142
+9,wm-1,2025-04-28,14:20:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',158
+10,wm-1,2025-04-28,14:30:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',180
+11,wm-1,2025-04-28,14:40:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',190
+12,wm-1,2025-04-28,14:50:00,'Waxing Machine - 1','Building 1 - Level 4 - area 1',202

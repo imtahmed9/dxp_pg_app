@@ -1,0 +1,15 @@
+---
+applications:
+  - name: dxp-pg-app-srv
+    path: gen/srv
+    memory: 512M
+    disk_quota: 512M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: npm start
+    services:
+      - postgres-dev
+    env:
+      NODE_ENV: production
+      CDS_ENV: production

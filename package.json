@@ -1,0 +1,44 @@
+{
+  "name": "dxp-pg-app",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/postgres": "^1.13.0",
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.10.0",
+    "@cap-js/sqlite": "^1.10.0",
+    "@sap/cds-dk": "^8",
+    "sqlite": "^5.1.1"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "machinedata": "cds watch --open machinedata/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-waxmachine": "cds watch --open waxmachine/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-waxmachinefs": "cds watch --open waxmachinefs/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-machine_type_real_type_monitoring": "cds watch --open machine_type_real_type_monitoring/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "schema_evolution": "none",
+        "kind": "postgres",
+        "vcap": {
+          "label": "postgresql-db"
+        }
+      },
+      "auth": "mocked"
+    }
+  },
+  "sapux": [
+    "app/machinedata",
+    "app/waxmachine",
+    "app/waxmachine"
+  ]
+}

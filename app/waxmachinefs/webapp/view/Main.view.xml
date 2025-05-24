@@ -1,0 +1,218 @@
+<mvc:View controllerName="com.evoedge.waxmachinefs.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:ui="sap.ui.table"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns:core="sap.ui.core"
+    xmlns:suite="sap.suite.ui.commons"
+    height="100%">
+
+    <f:DynamicPage id="dynamicPageId" >
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Waxing Machine"/>
+					</f:heading>
+					<f:expandedContent>
+						<Label text="Waxing Machine"/>
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label text="Waxing Machine"/>
+					</f:snappedContent>
+					<f:snappedTitleOnMobile>
+						<Title text="Waxing Machine"/>
+					</f:snappedTitleOnMobile>
+				
+					
+					
+				</f:DynamicPageTitle>
+			</f:title>
+			<!-- DynamicPage Header -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
+					<f:content>
+						<fb:FilterBar id="idFilterBar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+							<fb:filterGroupItems>
+								<fb:FilterGroupItem name="Name" label="Machine Id" groupName="Group1" visibleInFilterBar="true" mandatory="true">
+									<fb:control>
+                                        <Input value="{viewModel>/machineId}"></Input>
+									</fb:control>
+								</fb:FilterGroupItem>
+								<fb:FilterGroupItem name="Year" label="Year" groupName="Group1" visibleInFilterBar="true">
+									<fb:control>
+                                        <DatePicker
+                                            value="{
+                                                path: 'viewModel>/selectedYear',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                    pattern: 'yyyy'
+                                                }
+                                            }"
+                                            change="onMonthOrYearChange"/>
+
+									</fb:control>
+								</fb:FilterGroupItem>
+								<!-- Month Filter -->
+                                <fb:FilterGroupItem name="Month" label="Month" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                        <ComboBox
+                                            selectedKey="{viewModel>/selectedMonth}"
+                                            change="onMonthOrYearChange">
+                                            <core:Item key="01" text="January"/>
+                                            <core:Item key="02" text="February"/>
+                                            <core:Item key="03" text="March"/>
+                                            <core:Item key="04" text="April"/>
+                                            <core:Item key="05" text="May"/>
+                                            <core:Item key="06" text="June"/>
+                                            <core:Item key="07" text="July"/>
+                                            <core:Item key="08" text="August"/>
+                                            <core:Item key="09" text="September"/>
+                                            <core:Item key="10" text="October"/>
+                                            <core:Item key="11" text="November"/>
+                                            <core:Item key="12" text="December"/>
+                                        </ComboBox>
+
+                                </fb:control>
+                                </fb:FilterGroupItem>
+
+                                <!-- Date Filter -->
+                                <fb:FilterGroupItem name="Date" label="Date" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <DatePicker
+                                        id="idDatePicker"
+                                        displayFormat="yyyy-MM-dd"
+                                        value="{
+                                            path: 'viewModel>/date',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: { pattern: 'yyyy-MM-dd' }
+                                        }"
+                                        change="handleChange"/>
+
+                                </fb:control>
+                                </fb:FilterGroupItem>
+
+                                <!-- Time Range Filter -->
+                                <fb:FilterGroupItem name="TimeRange" label="Time Range" groupName="Group1" visibleInFilterBar="true">
+                                <fb:control>
+                                    <HBox>
+                                    <TimePicker
+                                        value="{
+                                            path: 'viewModel>/startTime',
+                                            type: 'sap.ui.model.type.Time',
+                                            formatOptions: { pattern: 'HH:mm' }
+                                        }"
+                                        change="handleChange"/>
+
+                                    <Text text=" - " class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+                                    <TimePicker
+                                        value="{
+                                            path: 'viewModel>/endTime',
+                                            type: 'sap.ui.model.type.Time',
+                                            formatOptions: { pattern: 'HH:mm' }
+                                        }"
+                                        change="handleChange"/>
+                                    </HBox>
+                                </fb:control>
+                                </fb:FilterGroupItem>
+							</fb:filterGroupItems>
+						</fb:FilterBar>
+					</f:content>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+                
+                <VBox class="sapUiSmallMarginBottom" fitContainer="true" height="450px">
+    <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height="400px" width="100%" vizType="column">
+                <viz:dataset>
+                    <viz.data:FlattenedDataset id="idFlatDS" data="{chartModel>/results}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition id="idFlatDD" name="Time Unit" value="{chartModel>group}" />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition id="idFlatMD" name="Average" value="{chartModel>avg_value}" />
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                    <viz.feeds:FeedItem id="idFI1" uid="valueAxis" type="Measure" values="Average" />
+                    <viz.feeds:FeedItem id="idFI2" uid="categoryAxis" type="Dimension" values="Time Unit" />
+                </viz:feeds>
+        
+
+
+        <viz:dependents>
+            <viz:Popover id="idPopOver" />
+        </viz:dependents>
+    </viz:VizFrame>
+
+    <Table id="idProductsTable"
+						sticky="HeaderToolbar,ColumnHeaders"
+						inset="false"
+						items="{
+							path: '/WaxingMachineSet',
+							sorter: {
+								path: 'created_date,created_time'
+							}
+						}"
+                        growing="true"
+                        growingThreshold="100"
+                        class="sapFDynamicPageAlignContent sapUiSmallMarginBottom"
+					   width="auto">
+					<headerToolbar>
+						<Toolbar>
+							<Title text="Wax Machine" level="H2"/>
+                            <ToolbarSpacer />
+                            <Button icon="sap-icon://download"></Button>
+						</Toolbar>
+                        
+					</headerToolbar>
+					<columns>
+						<Column
+								width="12em">
+							<Text text="Machine Id" />
+						</Column>
+						<Column>
+							<Text text="Machine Name" />
+						</Column>
+						<Column>
+							<Text text="Location" />
+						</Column>
+						<Column>
+							<Text text="Pressure" />
+						</Column>
+                        <Column>
+							<Text text="Created Date" />
+						</Column>
+                        <Column>
+							<Text text="Created Time" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text
+										text="{machine_id}" />
+								<Text
+										text="{machine_name}" />
+								<Text
+										text="{Location}" />
+                                <Text
+										text="{pressure}" />
+                                <Text
+										text="{created_date}" />
+                                <Text
+										text="{created_time}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+            </VBox>				
+			</f:content>			
+		</f:DynamicPage>
+</mvc:View>
